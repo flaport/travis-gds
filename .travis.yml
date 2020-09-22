@@ -1,0 +1,22 @@
+language: python
+
+python:
+  - "3.7"
+
+install:
+  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+  - bash miniconda.sh -b -p $HOME/.anaconda
+  - source "$HOME/.anaconda/etc/profile.d/conda.sh"
+  - hash -r
+  - conda config --set always_yes yes --set changeps1 no
+  - conda update -q conda
+  - conda info -a
+  - conda create -q -n env -c conda-forge python=$TRAVIS_PYTHON_VERSION pip nose networkx matplotlib click unittest2 numpy scipy gitpython omegaconf pytest-regressions jsondiff shapely qrcode pandas tqdm tensorflow pytables numba scikit-rf
+  - conda activate env
+  - pip install gdspy klayout nlopt parsimonious phidl picwriter pyqtree rectpack simphony sipann gdslib gdsfactory
+
+script:
+  - python -c "import pp"
+
+after_success:
+  - echo "success!"
