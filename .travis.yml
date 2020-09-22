@@ -16,7 +16,10 @@ install:
   - pip install gdspy klayout nlopt parsimonious phidl picwriter pyqtree rectpack simphony sipann gdslib gdsfactory
 
 script:
-  - python -c "import pp"
+  - python design.py
+  - test -f design.json
+  - test -f design.gds
 
 after_success:
   - echo "success!"
+
