@@ -1,25 +1,36 @@
 language: python
-
 python:
-  - "3.7"
-
+- '3.7'
 install:
-  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
-  - bash miniconda.sh -b -p $HOME/.anaconda
-  - source "$HOME/.anaconda/etc/profile.d/conda.sh"
-  - hash -r
-  - conda config --set always_yes yes --set changeps1 no
-  - conda update -q conda
-  - conda info -a
-  - conda create -q -n env -c conda-forge python=$TRAVIS_PYTHON_VERSION pip nose networkx matplotlib click unittest2 numpy scipy gitpython omegaconf pytest-regressions jsondiff shapely qrcode pandas tqdm tensorflow pytables numba scikit-rf
-  - conda activate env
-  - pip install gdspy klayout nlopt parsimonious phidl picwriter pyqtree rectpack simphony sipann gdslib gdsfactory
-
+- wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+- bash miniconda.sh -b -p $HOME/.anaconda
+- source "$HOME/.anaconda/etc/profile.d/conda.sh"
+- hash -r
+- conda config --set always_yes yes --set changeps1 no
+- conda update -q conda
+- conda info -a
+- conda create -q -n env -c conda-forge python=$TRAVIS_PYTHON_VERSION pip nose networkx
+  matplotlib click unittest2 numpy scipy gitpython omegaconf pytest-regressions jsondiff
+  shapely qrcode pandas tqdm tensorflow pytables numba scikit-rf
+- conda activate env
+- pip install gdspy klayout nlopt parsimonious phidl picwriter pyqtree rectpack simphony
+  sipann gdslib gdsfactory
 script:
-  - python design.py
-  - test -f design.json
-  - test -f design.gds
-
+- python design.py
+- test -f design.json
+- test -f design.gds
+before_deploy:
+- git config --local user.name "YOUR GIT USER NAME"
+- git config --local user.email "YOUR GIT USER EMAIL"
+- export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
+- git tag $TRAVIS_TAG
+deploy:
+  provider: releases
+  api_key:
+    secure: b3U5/o4F2fKmR9NIfZKpXaGTga3vTtI9Z3IWx2hemXwKE6Cb9bcoXhYert/q+WyyJEua5T0lkw//KTcCRl9skCrV/cZY31Ic/tDKoILVqN4Ts5ux+t92gg4MzyISWWBGGR6nU8+BvDmchEYke4D/4VM8udqjoEXOe8Y+VEHP6KbmIZ/Q69QaZskQjwMcv1aWq/+RWHf6CGy/8qqMW6717e2njSpdW+s5nxYkDTwYSgqDtTMMqz86UrMSE1ZYLBdHD72JQ3XsAcL31MovZ6Lth8HdJon2KAJ+S1KAU9jopHsKkZi+TUmhQlZo3fdr0HTgXxefXDMvH4O0tLA+xzEokq+PiSE5sONctvKLrXVv9WzBrN0OgvnCHciW8XsQ5tFwI/PRNauXbDJhtf3hhIMGvVSbugf8JfujHK+jXtBt27X8aUKD0+DYnODk9I4UMxt16qH3dvkicdDTVMyifWRzrr36Sviz8qvbLyG6SsxB4uN99KHa8I2zqdMQ9k7PMe58KczOwVMgnC5Lx2oulFZreBRzZhlc0ya0jMu5qTkmFrQeyvShsf0CMTjZLb8AAEGkJYw77H1+3XQwcESjwASGXy+/3lfHqLgQk/24ucK1rKaKygY8+5TgNEdAdvrEepXfQlGWswCC5xiqlbwCfjsXD7AIt5VklNTbSvGRMc7wots=
+  file: design.gds
+  skip_cleanup: 'true'
+  on:
+    repo: flaport/travis-gds
 after_success:
-  - echo "success!"
-
+- echo "success!"
