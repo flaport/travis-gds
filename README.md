@@ -1,5 +1,7 @@
 # travis-gds
 
+[![Travis-CI](https://travis-ci.com/flaport/travis-gds.svg)](https://travis-ci.com/flaport/travis-gds)
+
 Automated gds builds with Travis CI
 
 ## Setting up releases with Travis CI
