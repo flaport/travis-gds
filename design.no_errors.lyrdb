@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<report-database>
+ <description>design</description>
+ <original-file/>
+ <generator>drc: script='drc.lydrc'</generator>
+ <top-cell>big_device_N10_te</top-cell>
+ <tags>
+ </tags>
+ <categories>
+  <category>
+   <name>WG_layer width</name>
+   <description>WG layer width violation, should be &gt;200nm</description>
+   <categories>
+   </categories>
+  </category>
+ </categories>
+ <cells>
+  <cell>
+   <name>big_device_N10_te</name>
+   <variant/>
+   <references>
+   </references>
+  </cell>
+ </cells>
+ <items>
+ </items>
+</report-database>

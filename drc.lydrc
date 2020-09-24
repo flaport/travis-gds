@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<klayout-macro>
+ <description/>
+ <version/>
+ <category>drc</category>
+ <prolog/>
+ <epilog/>
+ <doc/>
+ <autorun>false</autorun>
+ <autorun-early>false</autorun-early>
+ <shortcut/>
+ <show-in-menu>true</show-in-menu>
+ <group-name>drc_scripts</group-name>
+ <menu-path>tools_menu.drc.end</menu-path>
+ <interpreter>dsl</interpreter>
+ <dsl-interpreter-name>drc-dsl-xml</dsl-interpreter-name>
+ <text>
+
+# Use a tile size of 1mm
+tiles(1.mm)
+
+# Use 4  threads
+threads(4)
+
+# open "design.gds"
+source("design.gds")
+
+# report in "design.lyrdb"
+report("design", "design.lyrdb")
+
+# just check waveguide width
+wglayer = input(1, 0)
+wglayer.width(0.2.micron, angle_limit(45)).output("WG_layer width", "WG layer width violation, should be &gt;200nm")
+
+# the following check will fail:
+#wglayer.space(0.3.micron).output("WG_layer gap", "WG layer gap violation, should be &gt;300nm")
+
+</text>
+</klayout-macro>
