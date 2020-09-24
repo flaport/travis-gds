@@ -1,3 +1,5 @@
+os: linux
+dist: focal
 language: python
 python:
   - "3.7"
@@ -30,11 +32,11 @@ before_deploy:
   - git tag $TRAVIS_TAG
 deploy:
   provider: releases
-  api_key:
+  token:
     secure: b3U5/o4F2fKmR9NIfZKpXaGTga3vTtI9Z3IWx2hemXwKE6Cb9bcoXhYert/q+WyyJEua5T0lkw//KTcCRl9skCrV/cZY31Ic/tDKoILVqN4Ts5ux+t92gg4MzyISWWBGGR6nU8+BvDmchEYke4D/4VM8udqjoEXOe8Y+VEHP6KbmIZ/Q69QaZskQjwMcv1aWq/+RWHf6CGy/8qqMW6717e2njSpdW+s5nxYkDTwYSgqDtTMMqz86UrMSE1ZYLBdHD72JQ3XsAcL31MovZ6Lth8HdJon2KAJ+S1KAU9jopHsKkZi+TUmhQlZo3fdr0HTgXxefXDMvH4O0tLA+xzEokq+PiSE5sONctvKLrXVv9WzBrN0OgvnCHciW8XsQ5tFwI/PRNauXbDJhtf3hhIMGvVSbugf8JfujHK+jXtBt27X8aUKD0+DYnODk9I4UMxt16qH3dvkicdDTVMyifWRzrr36Sviz8qvbLyG6SsxB4uN99KHa8I2zqdMQ9k7PMe58KczOwVMgnC5Lx2oulFZreBRzZhlc0ya0jMu5qTkmFrQeyvShsf0CMTjZLb8AAEGkJYw77H1+3XQwcESjwASGXy+/3lfHqLgQk/24ucK1rKaKygY8+5TgNEdAdvrEepXfQlGWswCC5xiqlbwCfjsXD7AIt5VklNTbSvGRMc7wots=
   file: design.gds
-  skip_cleanup: "true"
   on:
     repo: flaport/travis-gds
+  cleanup: false
 after_success:
   - echo "success!"
